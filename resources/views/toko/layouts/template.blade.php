@@ -74,10 +74,11 @@
     <!-- Menu Navigasi -->
     <div class="d-none d-lg-block me-4">
       <ul class="navbar-nav flex-row gap-3">
-        <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="{{ route('tokodashboard') }}">Beranda</a></li>
-        <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="{{ route('cart') }}">Cart</a></li>
-        <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="{{ route('pesanan') }}">Pesanan</a></li>
-        <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="{{ route('kontak') }}">Kontak Kami</a></li>
+        <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="{{ route('tokodashboard') }}">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="{{ route('cart') }}">Profile</a></li>
+        <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="{{ route('pesanan') }}">Isi KRS</a></li>
+        <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="{{ route('kontak') }}">Jadwal Kuliah</a></li>
+       <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="{{ route('kontak') }}">Presensi</a></li>
       </ul>
     </div>
 

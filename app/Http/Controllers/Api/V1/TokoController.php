@@ -14,16 +14,9 @@ class TokoController extends Controller
     //
     public function tokodashboard(Request $request)
     {
-        $query = Produk::query();
+       
 
-        if ($request->has('search') && $request->search != '') {
-            $query->where('NamaProduk', 'LIKE', '%' . $request->search . '%');
-        }
-        // Contoh mengambil data produk terlaris, sesuaikan dengan logika bisnismu
-        $produkTerlaris = Produk::take(3)->get();
-        $produk = $query->get();
-
-        return view('toko.dashboardToko', compact('produk', 'produkTerlaris'));
+        return view('toko.dashboardToko');
     }
     // public function cart()
     // {
