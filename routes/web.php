@@ -1,43 +1,12 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CustomerController;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Api\V1\CategoryController;
+use Illuminate\Support\Facades\Auth; 
 use App\Http\Controllers\Api\V1\DashboardController;
-use App\Http\Controllers\Api\V1\SatuanController;
-use App\Http\Controllers\Api\V1\FoodTypeController;
-use App\Http\Controllers\Api\V1\OrderController;
-use App\Http\Controllers\Api\V1\ItemsController; /* */
-use App\Http\Controllers\Api\V1\ParameterReportController;
-use App\Http\Controllers\Api\V1\DiseaseReportController;
-use App\Http\Controllers\Api\V1\ProductController;
-use App\Http\Controllers\Api\V1\SubCategoryController;
-use App\Http\Controllers\Api\V1\UserController;
-use App\Http\Controllers\Api\V1\TransaksiController; // Pastikan ini di-import
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController; // Pastikan ini di-import
-use App\Models\Items; /* */
-use App\Models\ParameterReport;
-use App\Models\DiseaseReport;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\DiagnosaController;
-use App\Http\Controllers\Api\V1\AdminProfileController;
-use App\Http\Controllers\Api\V1\TypeItemsController;
-use App\Http\Controllers\Api\V1\SupplierController;
-use App\Models\TypeItems;
 use App\Http\Controllers\Api\V1\TokoController;
-use App\Models\Produk;
-use App\Models\Supplier; /* */
 use App\Http\Controllers\Api\V1\ProdukController;
-use App\Http\Controllers\Api\V1\DeliveryShoppingController;
-use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\Api\V1\CartController;
-use App\Http\Controllers\Api\V1\ForecastController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Api\V1\AddressController;
-use App\Http\Controllers\Api\V1\PesananController;
-use App\Http\Controllers\Api\V1\PaymentController;
-use App\Http\Controllers\Api\V1\DetailProdukController;
 use App\Http\Controllers\Api\V1\SizeController;
 use App\Http\Controllers\Api\V1\DiskonController;
 
@@ -50,7 +19,7 @@ use App\Http\Controllers\Api\V1\DiskonController;
 Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customerDetails');
 
 Route::get('/', function () {
-    
+
     return view('welcome');
 });
 
@@ -84,283 +53,99 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin/delete-diskon/{id}', [DiskonController::class, 'destroy'])->name('deletediskon');
 
     Route::post('/admin/store-produk', [ProdukController::class, 'storeProduk'])->name('storeproduk');
-}); 
 
+    // ========== SIAKAD ROUTES ==========
+    // Dosen
+    Route::get('/admin/all-dosen', [App\Http\Controllers\Api\V1\DosenController::class, 'Index'])->name('alldosen');
+    Route::get('/admin/add-dosen', [App\Http\Controllers\Api\V1\DosenController::class, 'AddDosen'])->name('adddosen');
+    Route::post('/admin/store-dosen', [App\Http\Controllers\Api\V1\DosenController::class, 'StoreDosen'])->name('storedosen');
+    Route::get('/admin/edit-dosen/{NIP}', [App\Http\Controllers\Api\V1\DosenController::class, 'EditDosen'])->name('editdosen');
+    Route::post('/admin/update-dosen', [App\Http\Controllers\Api\V1\DosenController::class, 'UpdateDosen'])->name('updatedosen');
+    Route::get('/admin/delete-dosen/{NIP}', [App\Http\Controllers\Api\V1\DosenController::class, 'DeleteDosen'])->name('deletedosen');
 
-Route::controller(DetailProdukController::class)->group(function () {
-    Route::get('/admin/detail-produk', 'index')->name('detail.produk');
-    Route::get('/detail-produk/{id}', [DetailProdukController::class, 'show'])->name('detail.produk');
-    Route::get('/admin/produk', [DetailProdukController::class, 'indexAdmin'])->name('admin.produk.index');
+    // Golongan
+    Route::get('/admin/all-golongan', [App\Http\Controllers\Api\V1\GolonganController::class, 'Index'])->name('allgolongan');
+    Route::get('/admin/add-golongan', [App\Http\Controllers\Api\V1\GolonganController::class, 'AddGolongan'])->name('addgolongan');
+    Route::post('/admin/store-golongan', [App\Http\Controllers\Api\V1\GolonganController::class, 'StoreGolongan'])->name('storegolongan');
+    Route::get('/admin/edit-golongan/{id_Gol}', [App\Http\Controllers\Api\V1\GolonganController::class, 'EditGolongan'])->name('editgolongan');
+    Route::post('/admin/update-golongan', [App\Http\Controllers\Api\V1\GolonganController::class, 'UpdateGolongan'])->name('updategolongan');
+    Route::get('/admin/delete-golongan/{id_Gol}', [App\Http\Controllers\Api\V1\GolonganController::class, 'DeleteGolongan'])->name('deletegolongan');
+
+    // Ruang
+    Route::get('/admin/all-ruang', [App\Http\Controllers\Api\V1\RuangController::class, 'Index'])->name('allruang');
+    Route::get('/admin/add-ruang', [App\Http\Controllers\Api\V1\RuangController::class, 'AddRuang'])->name('addruang');
+    Route::post('/admin/store-ruang', [App\Http\Controllers\Api\V1\RuangController::class, 'StoreRuang'])->name('storeruang');
+    Route::get('/admin/edit-ruang/{id_ruang}', [App\Http\Controllers\Api\V1\RuangController::class, 'EditRuang'])->name('editruang');
+    Route::post('/admin/update-ruang', [App\Http\Controllers\Api\V1\RuangController::class, 'UpdateRuang'])->name('updateruang');
+    Route::get('/admin/delete-ruang/{id_ruang}', [App\Http\Controllers\Api\V1\RuangController::class, 'DeleteRuang'])->name('deleteruang');
+
+    // Matakuliah
+    Route::get('/admin/all-matakuliah', [App\Http\Controllers\Api\V1\MatakuliahController::class, 'Index'])->name('allmatakuliah');
+    Route::get('/admin/add-matakuliah', [App\Http\Controllers\Api\V1\MatakuliahController::class, 'AddMatakuliah'])->name('addmatakuliah');
+    Route::post('/admin/store-matakuliah', [App\Http\Controllers\Api\V1\MatakuliahController::class, 'StoreMatakuliah'])->name('storematakuliah');
+    Route::get('/admin/edit-matakuliah/{Kode_mk}', [App\Http\Controllers\Api\V1\MatakuliahController::class, 'EditMatakuliah'])->name('editmatakuliah');
+    Route::post('/admin/update-matakuliah', [App\Http\Controllers\Api\V1\MatakuliahController::class, 'UpdateMatakuliah'])->name('updatematakuliah');
+    Route::get('/admin/delete-matakuliah/{Kode_mk}', [App\Http\Controllers\Api\V1\MatakuliahController::class, 'DeleteMatakuliah'])->name('deletematakuliah');
+
+    // Mahasiswa
+    Route::get('/admin/all-mahasiswa', [App\Http\Controllers\Api\V1\MahasiswaAkademikController::class, 'Index'])->name('allmahasiswa');
+    Route::get('/admin/add-mahasiswa', [App\Http\Controllers\Api\V1\MahasiswaAkademikController::class, 'AddMahasiswa'])->name('addmahasiswa');
+    Route::post('/admin/store-mahasiswa', [App\Http\Controllers\Api\V1\MahasiswaAkademikController::class, 'StoreMahasiswa'])->name('storemahasiswa');
+    Route::get('/admin/edit-mahasiswa/{NIM}', [App\Http\Controllers\Api\V1\MahasiswaAkademikController::class, 'EditMahasiswa'])->name('editmahasiswa');
+    Route::post('/admin/update-mahasiswa', [App\Http\Controllers\Api\V1\MahasiswaAkademikController::class, 'UpdateMahasiswa'])->name('updatemahasiswa');
+    Route::get('/admin/delete-mahasiswa/{NIM}', [App\Http\Controllers\Api\V1\MahasiswaAkademikController::class, 'DeleteMahasiswa'])->name('deletemahasiswa');
+
+    // Pengampu
+    Route::get('/admin/all-pengampu', [App\Http\Controllers\Api\V1\PengampuController::class, 'Index'])->name('allpengampu');
+    Route::get('/admin/add-pengampu', [App\Http\Controllers\Api\V1\PengampuController::class, 'AddPengampu'])->name('addpengampu');
+    Route::post('/admin/store-pengampu', [App\Http\Controllers\Api\V1\PengampuController::class, 'StorePengampu'])->name('storepengampu');
+    Route::get('/admin/delete-pengampu/{Kode_mk}/{NIP}', [App\Http\Controllers\Api\V1\PengampuController::class, 'DeletePengampu'])->name('deletepengampu');
+
+    // Jadwal Akademik
+    Route::get('/admin/all-jadwal', [App\Http\Controllers\Api\V1\JadwalAkademikController::class, 'Index'])->name('alljadwal');
+    Route::get('/admin/add-jadwal', [App\Http\Controllers\Api\V1\JadwalAkademikController::class, 'AddJadwal'])->name('addjadwal');
+    Route::post('/admin/store-jadwal', [App\Http\Controllers\Api\V1\JadwalAkademikController::class, 'StoreJadwal'])->name('storejadwal');
+    Route::get('/admin/edit-jadwal/{id_jadwal}', [App\Http\Controllers\Api\V1\JadwalAkademikController::class, 'EditJadwal'])->name('editjadwal');
+    Route::post('/admin/update-jadwal', [App\Http\Controllers\Api\V1\JadwalAkademikController::class, 'UpdateJadwal'])->name('updatejadwal');
+    Route::get('/admin/delete-jadwal/{id_jadwal}', [App\Http\Controllers\Api\V1\JadwalAkademikController::class, 'DeleteJadwal'])->name('deletejadwal');
+
+    // KRS
+    Route::get('/admin/all-krs', [App\Http\Controllers\Api\V1\KrsController::class, 'Index'])->name('allkrs');
+    Route::get('/admin/add-krs', [App\Http\Controllers\Api\V1\KrsController::class, 'AddKrs'])->name('addkrs');
+    Route::post('/admin/store-krs', [App\Http\Controllers\Api\V1\KrsController::class, 'StoreKrs'])->name('storekrs');
+    Route::get('/admin/delete-krs/{NIM}/{Kode_mk}', [App\Http\Controllers\Api\V1\KrsController::class, 'DeleteKrs'])->name('deletekrs');
+
+    // Presensi Akademik
+    Route::get('/admin/all-presensi', [App\Http\Controllers\Api\V1\PresensiAkademikController::class, 'Index'])->name('allpresensi');
+    Route::get('/admin/add-presensi', [App\Http\Controllers\Api\V1\PresensiAkademikController::class, 'AddPresensi'])->name('addpresensi');
+    Route::post('/admin/store-presensi', [App\Http\Controllers\Api\V1\PresensiAkademikController::class, 'StorePresensi'])->name('storepresensi');
+    Route::get('/admin/edit-presensi/{id_presensi}', [App\Http\Controllers\Api\V1\PresensiAkademikController::class, 'EditPresensi'])->name('editpresensi');
+    Route::post('/admin/update-presensi', [App\Http\Controllers\Api\V1\PresensiAkademikController::class, 'UpdatePresensi'])->name('updatepresensi');
+    Route::get('/admin/delete-presensi/{id_presensi}', [App\Http\Controllers\Api\V1\PresensiAkademikController::class, 'DeletePresensi'])->name('deletepresensi');
 });
 
 
-Route::controller(ItemsController::class)->group(function () {
-    Route::get('/admin/all-item', 'Index')->name('allitems'); /* */
-    Route::get('/admin/all-item/exportpdf', 'exportPdf')->name('allitems.exportpdf');
-    Route::get('/admin/all-item/detail/{id}', 'detail')->name('admin.detail_allitems');
-    Route::get('/admin/all-item/exportpdf/{id}', 'exportPdfDetail')->name('allitems.exportpdf.detail'); 
-    Route::get('/admin/manage-item', 'ManageItems')->name('manageitems');
-    Route::get('/admin/all-item/search', 'SearchItem')->name('searchitem');
-    Route::get('/admin/add-items', 'AddItems')->name('additems');
-    Route::post('/admin/store-item', 'StoreItem')->name('store-item');
-    Route::get('/admin/edit-item/{id}', 'EditItem')->name('edititem');
-    Route::post('/admin/update-item', 'UpdateItem')->name('updateitem');
-    Route::get('/admin/delete-item/{id}', 'DeleteItem')->name('deleteitem');
-    Route::get('/admin/keluar-barang', 'KeluarBarang')->name('exititems');
-    Route::post('/admin/store-keluar-barang', 'StoreKeluarBarang')->name('store-exititems');
-    Route::get('/admin/keluar-barang', 'KeluarBarang')->name('exititems');
-    Route::post('/admin/store-keluar-barang', 'StoreKeluarBarang')->name('store-exititems');
-    // New route for updating stock
-    Route::post('/admin/update-stock-item', 'UpdateStockItem')->name('update-stock-item'); /* */
-    Route::post('/barang/tambah-qty', [ItemsController::class, 'tambahQty'])->name('barang.tambahQty');
 
-});
-
-Route::post('/predict', [ForecastController::class, 'predict']);
-
-Route::controller(SatuanController::class)->group(function () {
-    Route::get('/admin/all-satuan', 'Index')->name('allsatuan');
-    Route::get('/admin/manage-satuan', 'ManageSatuan')->name('managesatuan');
-    Route::get('/admin/all-satuan/search', 'SearchSatuan')->name('searchsatuan');
-    Route::get('/admin/add-satuan', 'AddSatuan')->name('addsatuan');
-    Route::post('/admin/store-satuan', 'StoreSatuan')->name('store-satuan');
-    Route::get('/admin/edit-satuan/{id}', 'EditSatuan')->name('editsatuan');
-    Route::post('/admin/update-satuan', 'UpdateSatuan')->name('updatesatuan');
-    Route::get('/admin/delete-satuan/{id}', 'DeleteSatuan')->name('deletesatuan');
-});
-
-Route::controller(TransaksiController::class)->group(function () {
-    Route::get('/admin/all-transaksi', 'index')->name('alltransaksi');
-    Route::get('/admin/all-transaksi/exportpdf', 'exportPdf')->name('alltransaksi.exportpdf');
-    Route::post('/admin/all-transaksi/{id}/terima', 'terimaOrderan')->name('terimaOrderan');
-    Route::post('/admin/all-transaksi/{id}/tolak', 'tolakOrderan')->name('tolakOrderan');
-    Route::get('/admin/view-order/{id}', 'ViewOrder')->name('vieworder');
-});
-
-
-Route::middleware(['auth'])->group(function () {
-    Route::controller(TypeItemsController::class)->group(function () {
-        Route::get('/admin/all-type', 'Index')->name('alltype');
-        Route::get('/admin/all-type/search', 'SearchType')->name('searchtype');
-        Route::get('/admin/add-type', 'AddType')->name('addtype');
-        Route::post('/admin/store-type', 'StoreType')->name('store-type');
-        Route::get('/admin/edit-type/{id}', 'EditType')->name('edittype');
-        Route::post('/admin/update-type', 'UpdateType')->name('updatetype');
-        Route::get('/admin/delete-type/{id}', 'DeleteType')->name('deletetype');
-    });
-});
-
-
-Route::controller(ItemsController::class)->group(function () { /* */
-    Route::get('/admin/daftar-barang', 'index')->name('daftarbarang');
-    Route::get('/admin/daftar-barang/add-daftar-barang', 'addDaftarBarang')->name('adddaftarbarang');
-    Route::post('/admin/daftar-barang/add-daftar-barang', 'addDaftarBarang')->name('adddaftarbarang');
-    // GET request untuk menampilkan form tambah barang
-    Route::get('/admin/daftar-barang/add-daftar-barang', 'addDaftarBarang')->name('adddaftarbarang');
-    // POST request untuk memproses form tambah barang
-    Route::post('/admin/daftar-barang/add-daftar-barang', 'addDaftarBarang')->name('adddaftarbarang'); // Ubah ke store, bukan addDaftarBarang
-    // Rute untuk tambah jenis barang baru
-    Route::post('/admin/jenis-barang/add', [TypeItems::class, 'addDaftarBarang'])->name('addTypeItems');
-    // Route untuk detail barang
-    Route::get('/admin/daftar-barang/barang/{id}/detail', 'show')->name('barang.detail');
-    // Route untuk edit barang
-    Route::get('/admin/daftar-barang/barang/{id}/edit', 'edit')->name('barang.edit');
-    // Route untuk update barang
-    Route::put('/admin/daftar-barang/barang/{id}/update', 'update')->name('barang.update'); // Perbaiki route untuk update
-    // Route untuk delete barang
-    Route::delete('/admin/daftar-barang/barang/{id}', 'destroy')->name('barang.delete');
-
-    Route::post('/add-jenis-barang', [ItemsController::class, 'addTypeItems'])->name('addTypeItems'); /* */
-    Route::delete('/delete-jenis-barang/{id}', [ItemsController::class, 'deleteTypeItems'])->name('deleteTypeItems'); /* */
-});
 
 Route::controller(TokoController::class)->group(function () {
-    Route::get('/tokodashboard', function () {return view('toko.dashboardToko');})->name('tokodashboard');
+    Route::get('/tokodashboard', function () {
+        return view('toko.dashboardToko'); })->name('tokodashboard');
     Route::get('/tokodashboard', [TokoController::class, 'tokodashboard'])->name('tokodashboard');
 
 
-    Route::get('/shop', function () {return view('toko.dashboardToko');})->name('shop');
-    Route::get('/keranjang', function () {return view('toko.dashboardToko');})->name('keranjang');
-    Route::get('/faq', function () {return view('toko.dashboardToko');})->name('faq');
-    Route::get('/lacak', function () {return view('toko.dashboardToko');})->name('lacak');
+    Route::get('/shop', function () {
+        return view('toko.dashboardToko'); })->name('shop');
+    Route::get('/keranjang', function () {
+        return view('toko.dashboardToko'); })->name('keranjang');
+    Route::get('/faq', function () {
+        return view('toko.dashboardToko'); })->name('faq');
+    Route::get('/lacak', function () {
+        return view('toko.dashboardToko'); })->name('lacak');
     Route::get('/kontak', function () {
         return redirect('/#contact-us');
     })->name('kontak');
 });
 
-Route::controller(ParameterReportController::class)->group(function () {
-    Route::get('/admin/parameter-report', 'Index')->name('parameterreport');
-});
-
-
-Route::controller(ProdukController::class)->group(function () {
-    // Tampilkan semua produk
-    Route::get('/admin/all-produk', 'index')->name('allproduk');
-    // Tampilkan form tambah produk
-    Route::get('/admin/add-produk', 'addProduk')->name('addproduk');
-    // Proses form tambah produk
-    Route::post('/admin/store-produk', 'storeProduk')->name('storeproduk');
-    // Form edit produk
-    Route::get('/admin/all-produk/{id}/edit', 'editProduk')->name('editproduk');
-    // Update produk
-    Route::put('/admin/all-produk/{id}/update', 'updateProduk')->name('updateproduk');
-    // Hapus produk
-    Route::delete('/admin/all-produk/{id}', 'deleteProduk')->name('deleteproduk');
-    // Cari produk
-    Route::get('/admin/search-produk', 'searchProduk')->name('searchproduk');
-    // API get list produk (JSON)
-    Route::get('/api/produk', 'get_produk_list')->name('getproduk');
-});
-
-Route::controller(TransaksiController::class)->group(function () {
-    Route::get('/admin/all-transaksi', 'index')->name('alltransaksi');
-    Route::get('/admin/all-transaksi/exportpdf', 'exportPdf')->name('alltransaksi.exportpdf');
-    Route::get('/admin/all-transaksi/{id}/terima', 'terimaOrderan')->name('terimaOrderan');
-    Route::post('/admin/all-transaksi/{id}/tolak', 'tolakOrderan')->name('tolakOrderan');
-});
-
-Route::controller(SupplierController::class)->group(function () {
-    // Tampilkan semua supplier
-    Route::get('/admin/daftar-supplier', 'index')->name('allsuppliers');
-    // Tampilkan form tambah supplier
-    Route::get('/admin/daftar-supplier/add', 'addSupplier')->name('addsupplier');
-    // Proses form tambah supplier
-    Route::post('/admin/daftar-supplier/add', 'storeSupplier')->name('storesupplier');
-    // Form edit supplier
-    Route::get('/admin/daftar-supplier/{id}/edit', 'editSupplier')->name('editsupplier');
-    Route::put('/admin/daftar-supplier/{id}/update', 'updateSupplier')->name('updatesupplier');
-    Route::delete('/admin/daftar-supplier/{id}', 'deleteSupplier')->name('deletesupplier');
-    Route::get('/admin/search-supplier', 'searchSupplier')->name('searchsupplier');
-    Route::get('/api/suppliers', 'get_supplier_list')->name('getsuppliers');
-    Route::delete('/supplier/{id}', 'destroy')->name('deletesupplier');
-
-    Route::delete('/supplier/{id}', 'destroy')->name('deletesupplier');
-
-});
-
-Route::controller(CustomerController::class)->group(function () {
-    // Tampilkan semua supplier
-    Route::get('/admin/daftar-customer', 'index')->name('allcustomer');
-    Route::get('/customer/{id}', 'show')->name('customerDetails');
-    // Tampilkan form tambah supplier
-});
-
-
-Route::controller(UserController::class)->group(function () {
-    Route::get('/admin/all-users', 'Index')->name('allusers');
-    Route::get('/admin/search-users/search', 'SearchUsers')->name('searchusers');
-    Route::get('/admin/add-users', 'AddUsers')->name('add-users');
-    Route::post('/admin/store-users', 'StoreUsers')->name('storeusers');
-    Route::get('/admin/edit-users/{id}', 'EditUsers')->name('editusers');
-    Route::post('/admin/update-users', 'UpdateUsers')->name('update-users');
-    Route::get('/admin/delete-users/{id}', 'DeleteUsers')->name('deleteusers');
-});
-
-Route::controller(DiagnosaController::class)->group(function () {
-    Route::get('/admin/all-diagnosa', 'Index')->name('allDiagnosaPenyakit');
-    Route::get('/admin/search-diagnosa', 'SearchDiagnosa')->name('searchdiagnosa');
-    Route::get('/admin/add-diagnosa', 'AddDiagnosa')->name('add-diagnosa');
-    Route::post('/admin/store-diagnosa', 'StoreDiagnosa')->name('storediagnosa');
-    Route::get('/admin/edit-diagnosa/{id}', 'editDiagnosa')->name('editdiagnosa');
-    Route::post('/admin/update-diagnosa/{id}', 'updateDiagnosa')->name('update-diagnosa');
-    Route::get('/admin/delete-diagnosa/{id}', 'deleteDiagnosa')->name('deletediagnosa');
-    Route::get('/admin/show-diagnosa/{id}', 'showDiagnosa')->name('showdiagnosa');
-});
-
-
-// Route::controller(OrderController::class)->group(function () {
-//     Route::get('/admin/pending-order', 'Index')->name('pendingorder');
-//     Route::get('/admin/pending-order/search', 'SearchPending')->name('searchorder');
-//     Route::get('/admin/history-order', 'IndexHistory')->name('historyorder');
-//     Route::get('/admin/update-order/{id}', 'UpdateOrder')->name('updateorder');
-//     Route::get('/admin/delete-order/{id}', 'DeleteOrder')->name('deleteorder');
-// });
-
-Route::controller(AdminProfileController::class)->group(function () {
-    Route::get('/admin/admin-profile', 'Index')->name('profile');
-    Route::post('/admin/store-profile', 'StoreProfile')->name('storeprofile');
-    Route::get('/admin/pending-order/search', 'SearchPending')->name('searchorder');
-    Route::get('/admin/history-order', 'IndexHistory')->name('historyorder');
-
-    Route::post('/admin/profile', [AdminProfileController::class, 'StoreProfile'])->name('storeprofile');
-});
-
-
-// Forecast routes
-Route::get('/admin/forecast', [ForecastController::class, 'showForm'])->name('forecast.form');
-Route::post('/admin/forecast/predict', [ForecastController::class, 'predict'])->name('predict');
-// Forecast routes
-Route::get('/admin/forecast', [ForecastController::class, 'showForm'])->name('forecast.form');
-Route::post('/admin/forecast/predict', [ForecastController::class, 'predict'])->name('predict');
-Route::get('/admin/forecast/get-sales-data', [ForecastController::class, 'getSalesData'])->name('forecast.get-sales-data');
-
-Route::get('/routes', function () {
-    $routeCollection = Route::getRoutes();
-    foreach ($routeCollection as $value) {
-        echo $value->getActionName();
-        echo "<br/>";
-    }
-});
-
-Route::controller(TokoController::class)->group(function () {
-    // Route::get('/tokodashboard', function () {return view('toko.dashboardToko');})->name('tokodashboard');
-    Route::get('/tokodashboard', [TokoController::class, 'tokodashboard'])->name('tokodashboard');
-    Route::get('/search', [ProductController::class, 'search'])->name('searchProduct');
-    Route::get('/pesanan', [TokoController::class, 'pesanan'])->middleware('auth')->name('pesanan');
-    Route::get('/kontak', function () {
-        return redirect('/#contact-us');
-    })->name('kontak');
-});
-
-Route::get('/pesanan/{id}', [PesananController::class, 'detail'])->name('pesanan.detail');
-
-
-
-// Cart and Order routes
-Route::middleware(['auth'])->group(function () {
-    Route::controller(CartController::class)->group(function () {
-        Route::get('/cart', 'index')->name('cart');
-        Route::match(['get', 'post'], '/details', 'details')->name('details');
-        Route::post('/save-address', 'saveAddress')->name('save.address');
-        Route::post('/save-shipping', 'saveShipping')->name('save.shipping');
-        Route::get('/shipping', [CartController::class, 'shipping'])->name('shipping');
-        Route::get('/payment', [\App\Http\Controllers\Api\V1\PaymentController::class, 'payment'])->name('payment');
-        Route::get('/review', [\App\Http\Controllers\Api\V1\OrderController::class, 'review'])->name('review');
-
-        // API Cart
-        Route::post('/cart/add', 'add')->name('cart.add');
-        Route::post('/cart/remove/{id}', 'remove')->name('cart.remove');
-        Route::post('/cart/decrease', 'decrease')->name('cart.decrease');
-        Route::post('/cart/update/{id}', 'update')->name('cart.update');
-    });
-
-    // Order routes
-    Route::controller(OrderController::class)->group(function () {
-        Route::post('/confirm-order', 'confirmOrder')->name('confirm.order');
-    });
-
-    Route::controller(AddressController::class)->group(function () {
-        Route::get('/addresses', 'index')->name('addresses.index');
-        Route::post('/addresses', 'store')->name('addresses.store');
-        Route::post('/addresses/{address}/default', 'setDefault')->name('addresses.default');
-        Route::delete('/addresses/{address}', 'destroy')->name('addresses.destroy');
-        Route::post('/addresses/{address}', [AddressController::class, 'update'])->name('addresses.update');
-    });
-});
-
-
-
-// Forecast routes
-Route::get('/admin/forecast', [ForecastController::class, 'showForm'])->name('forecast.form');
-Route::post('/admin/forecast/predict', [ForecastController::class, 'predict'])->name('predict');
-
-Route::get('/routes', function () {
-    $routeCollection = Route::getRoutes();
-    foreach ($routeCollection as $value) {
-        echo $value->getActionName();
-        echo "<br/>";
-    }
-});
 
 
 
@@ -389,32 +174,3 @@ Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 's
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
 
 Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/checkout', [DeliveryShoppingController::class, 'index'])->name('checkout');
-
-
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
-
-// Midtrans Payment Routes
-Route::controller(PaymentController::class)->group(function () {
-    Route::post('/payment/create-snap-token', 'createSnapToken')->name('payment.create-snap-token');
-    Route::post('/payment/notification', 'handleNotification')->name('payment.notification');
-});
-
-Route::post('/set-midtrans-paid', function (Illuminate\Http\Request $request) {
-    session(['midtrans_paid' => $request->paid]);
-    return response()->json(['success' => true]);
-});
-
-Route::post('/set-payment-method', function (Illuminate\Http\Request $request) {
-    session(['payment_method' => $request->method]);
-    session(['midtrans_paid' => $request->paid]);
-    return response()->json(['success' => true]);
-});
-
-// Detail Produk Routes
-Route::post('/cart/add', [App\Http\Controllers\Api\V1\CartController::class, 'add'])->name('cart.add');
-
-Route::post('/set-selected-address', [AddressController::class, 'setSelectedAddress'])->name('set.selected.address');

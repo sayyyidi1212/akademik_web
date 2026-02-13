@@ -32,7 +32,8 @@ class User extends Authenticatable implements CanResetPasswordContract
         'password',
         'username',
         'user',          // Kolom 'user' untuk peran (role)
-        'img'            // Kolom untuk gambar profil
+        'img',           // Kolom untuk gambar profil
+        'NIM',           // Link to mahasiswa table
     ];
 
     protected $attributes = [
@@ -115,5 +116,11 @@ class User extends Authenticatable implements CanResetPasswordContract
     public function latestAddress()
     {
         return $this->hasOne(Address::class, 'user_id', 'id')->latestOfMany();
+    }
+
+    // Relationship to Mahasiswa (for student users)
+    public function mahasiswa()
+    {
+        return $this->belongsTo(\App\Models\MahasiswaAkademik::class, 'NIM', 'NIM');
     }
 }
