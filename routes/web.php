@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CustomerController;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\ProfileController; // Pastikan ini di-import
 use Illuminate\Support\Facades\Route;
@@ -33,10 +33,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('admin/dashboard', 'Index')->name('admindashboard');
     });
 
-    Route::controller(AdminProfileController::class)->group(function () {
-        Route::get('/admin/admin-profile', 'Index')->name('profile');
-        Route::post('/admin/store-profile', 'StoreProfile')->name('storeprofile');
-    });
+
 
     Route::get('/admin/all-ukuran', [SizeController::class, 'index'])->name('allukuran');
     Route::get('/admin/add-ukuran', [SizeController::class, 'create'])->name('addukuran');
@@ -124,23 +121,34 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/delete-presensi/{id_presensi}', [App\Http\Controllers\Api\V1\PresensiAkademikController::class, 'DeletePresensi'])->name('deletepresensi');
 });
 
+// ========== MAHASISWA PORTAL ROUTES ==========
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mahasiswa/dashboard', [App\Http\Controllers\Api\V1\MahasiswaPortalController::class, 'Dashboard'])->name('mahasiswa.dashboard');
+    Route::get('/mahasiswa/krs', [App\Http\Controllers\Api\V1\MahasiswaPortalController::class, 'Krs'])->name('mahasiswa.krs');
+    Route::get('/mahasiswa/presensi', [App\Http\Controllers\Api\V1\MahasiswaPortalController::class, 'Presensi'])->name('mahasiswa.presensi');
+});
 
 
 
 Route::controller(TokoController::class)->group(function () {
     Route::get('/tokodashboard', function () {
-        return view('toko.dashboardToko'); })->name('tokodashboard');
+        return view('toko.dashboardToko');
+    })->name('tokodashboard');
     Route::get('/tokodashboard', [TokoController::class, 'tokodashboard'])->name('tokodashboard');
 
 
     Route::get('/shop', function () {
-        return view('toko.dashboardToko'); })->name('shop');
+        return view('toko.dashboardToko');
+    })->name('shop');
     Route::get('/keranjang', function () {
-        return view('toko.dashboardToko'); })->name('keranjang');
+        return view('toko.dashboardToko');
+    })->name('keranjang');
     Route::get('/faq', function () {
-        return view('toko.dashboardToko'); })->name('faq');
+        return view('toko.dashboardToko');
+    })->name('faq');
     Route::get('/lacak', function () {
-        return view('toko.dashboardToko'); })->name('lacak');
+        return view('toko.dashboardToko');
+    })->name('lacak');
     Route::get('/kontak', function () {
         return redirect('/#contact-us');
     })->name('kontak');

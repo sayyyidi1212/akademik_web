@@ -318,9 +318,6 @@
                             <div>Presensi</div>
                         </a>
                     </li>
-                    <div>Data Transaksi</div>
-                    </a>
-                    </li>
 
                 </ul>
                 <!-- Tombol Logout di bagian bawah sidebar -->
