@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Items;
-use Illuminate\Support\Facades\DB;
+use App\Models\Dosen;
+use App\Models\Golongan;
+use App\Models\MahasiswaAkademik;
+use App\Models\Matakuliah;
+use App\Models\Ruang;
+use App\Models\JadwalAkademik;
+use App\Models\Krs;
+use App\Models\PresensiAkademik;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -13,7 +19,25 @@ class DashboardController extends Controller
 
     public function Index()
     {
-        return view("admin.dashboard");
+        $totalMahasiswa = MahasiswaAkademik::count();
+        $totalDosen = Dosen::count();
+        $totalMatakuliah = Matakuliah::count();
+        $totalRuang = Ruang::count();
+        $totalGolongan = Golongan::count();
+        $totalJadwal = JadwalAkademik::count();
+        $totalKrs = Krs::count();
+        $totalPresensi = PresensiAkademik::count();
+
+        return view("admin.dashboard", compact(
+            'totalMahasiswa',
+            'totalDosen',
+            'totalMatakuliah',
+            'totalRuang',
+            'totalGolongan',
+            'totalJadwal',
+            'totalKrs',
+            'totalPresensi'
+        ));
     }
 
     public function AdminLogout(Request $request)
