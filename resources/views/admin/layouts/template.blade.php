@@ -321,12 +321,7 @@
                     <div>Data Transaksi</div>
                     </a>
                     </li>
-                    <li class="menu-item {{ request()->is('admin/forecast*') ? 'active' : '' }}">
-                        <a href="{{ route('forecast.form') }}" class="menu-link">
-                            <i class='menu-icon tf-icons bx bx-line-chart'></i>
-                            <div>Forecasting</div>
-                        </a>
-                    </li>
+                    
 
                 </ul>
                 <!-- Tombol Logout di bagian bawah sidebar -->
