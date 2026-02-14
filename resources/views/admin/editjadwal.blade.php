@@ -28,7 +28,7 @@
                             <div class="col-sm-10">
                                 <select class="form-select" id="hari" name="hari" required>
                                     <option value="">-- Pilih Hari --</option>
-                                    @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $h)
+                                    @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'] as $h)
                                         <option value="{{ $h }}" {{ $jadwalinfo->hari == $h ? 'selected' : '' }}>
                                             {{ $h }}
                                         </option>
