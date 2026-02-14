@@ -28,10 +28,10 @@ class LoginController extends Controller
      */
     public function redirectTo()
     {
-        if (Auth::user()->hasRole('Admin')) {
+        if (Auth::user()->user == 'Admin') {
             return '/admin/dashboard';
         }
-        return '/mahasiswa/dashboard';
+        return '/user/dashboard';
     }
 
     /**

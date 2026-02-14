@@ -219,9 +219,9 @@
                             </script>
                         @endif
 
-      <p>
+      <!-- <p>
         Tidak punya akun? <a href="register">Register</a>
-      </p>
+      </p> -->
     </form>
   </div>
 </body>
