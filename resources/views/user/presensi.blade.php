@@ -1,4 +1,4 @@
-@extends('mahasiswa.layouts.template')
+@extends('user.layouts.template')
 @section('page_title')
     SIAKAD | Data Presensi
 @endsection

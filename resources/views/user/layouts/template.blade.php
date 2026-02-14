@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
-    data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
+    data-assets-path="{{ asset('dashboard2/assets/') }}" data-template="vertical-menu-template-free">
 
 <head>
     <meta charset="utf-8" />
@@ -12,7 +12,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('sneat') }}/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('dashboard2/assets/img/favicon/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,28 +22,29 @@
         rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('sneat') }}/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="{{ asset('dashboard2/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('sneat') }}/assets/vendor/css/core.css"
+    <link rel="stylesheet" href="{{ asset('dashboard2/assets/vendor/css/core.css') }}"
         class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('sneat') }}/assets/vendor/css/theme-default.css"
+    <link rel="stylesheet" href="{{ asset('dashboard2/assets/vendor/css/theme-default.css') }}"
         class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('sneat') }}/assets/css/demo.css" />
+    <link rel="stylesheet" href="{{ asset('dashboard2/assets/css/demo.css') }}" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('sneat') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet"
+        href="{{ asset('dashboard2/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
-    <link rel="stylesheet" href="{{ asset('sneat') }}/assets/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="{{ asset('dashboard2/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="{{ asset('sneat') }}/assets/vendor/js/helpers.js"></script>
+    <script src="{{ asset('dashboard2/assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('sneat') }}/assets/js/config.js"></script>
+    <script src="{{ asset('dashboard2/assets/js/config.js') }}"></script>
 </head>
 
 <body>
@@ -54,7 +55,7 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="{{ route('mahasiswa.dashboard') }}" class="app-brand-link">
+                    <a href="{{ route('user.dashboard') }}" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -112,8 +113,8 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item {{ request()->routeIs('mahasiswa.dashboard') ? 'active' : '' }}">
-                        <a href="{{ route('mahasiswa.dashboard') }}" class="menu-link">
+                    <li class="menu-item {{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('user.dashboard') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
@@ -121,14 +122,14 @@
 
                     <!-- Akademik -->
                     <li class="menu-header small text-uppercase"><span class="menu-header-text">Akademik</span></li>
-                    <li class="menu-item {{ request()->routeIs('mahasiswa.krs') ? 'active' : '' }}">
-                        <a href="{{ route('mahasiswa.krs') }}" class="menu-link">
+                    <li class="menu-item {{ request()->routeIs('user.krs') ? 'active' : '' }}">
+                        <a href="{{ route('user.krs') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-book-open"></i>
                             <div>KRS</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ request()->routeIs('mahasiswa.presensi') ? 'active' : '' }}">
-                        <a href="{{ route('mahasiswa.presensi') }}" class="menu-link">
+                    <li class="menu-item {{ request()->routeIs('user.presensi') ? 'active' : '' }}">
+                        <a href="{{ route('user.presensi') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-check-square"></i>
                             <div>Presensi</div>
                         </a>
@@ -249,22 +250,22 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('sneat') }}/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="{{ asset('sneat') }}/assets/vendor/libs/popper/popper.js"></script>
-    <script src="{{ asset('sneat') }}/assets/vendor/js/bootstrap.js"></script>
-    <script src="{{ asset('sneat') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{{ asset('dashboard2/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('dashboard2/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('dashboard2/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('dashboard2/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <script src="{{ asset('sneat') }}/assets/vendor/js/menu.js"></script>
+    <script src="{{ asset('dashboard2/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="{{ asset('sneat') }}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="{{ asset('dashboard2/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
     <!-- Main JS -->
-    <script src="{{ asset('sneat') }}/assets/js/main.js"></script>
+    <script src="{{ asset('dashboard2/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
-    <script src="{{ asset('sneat') }}/assets/js/dashboards-analytics.js"></script>
+    <script src="{{ asset('dashboard2/assets/js/dashboards-analytics.js') }}"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

@@ -321,7 +321,7 @@
 
                 </ul>
                 <!-- Tombol Logout di bagian bawah sidebar -->
-                <div style="position: absolute; bottom: 20px; left: 0; width: 100%; padding: 0 20px;">
+                <div style="margin-top: auto; padding: 20px; width: 100%;">
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
@@ -386,23 +386,21 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('profile') }}">
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0 me-3">
-                                                    <div class="avatar avatar-online">
-                                                        <img src="{{ Auth::user() ? asset('uploads/users/' . Auth::user()->img) : asset('dashboard2/assets/img/avatars/default-avatar.png') }}"
-                                                            alt="user-avatar" class="d-block rounded" height="100"
-                                                            width="100" id="uploadedAvatar" />
-                                                    </div>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    @auth
-                                                        <span class="fw-medium d-block">{{ Auth::user()->f_name }}</span>
-                                                    @endauth
-                                                    <small class="text-muted">Admin</small>
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="{{ Auth::user() ? asset('uploads/users/' . Auth::user()->img) : asset('dashboard2/assets/img/avatars/default-avatar.png') }}"
+                                                        alt="user-avatar" class="d-block rounded" height="100"
+                                                        width="100" id="uploadedAvatar" />
                                                 </div>
                                             </div>
-                                        </a>
+                                            <div class="flex-grow-1">
+                                                @auth
+                                                    <span class="fw-medium d-block">{{ Auth::user()->f_name }}</span>
+                                                @endauth
+                                                <small class="text-muted">Admin</small>
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                             </li>

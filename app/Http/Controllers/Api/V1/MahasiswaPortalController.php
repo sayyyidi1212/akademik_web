@@ -15,10 +15,16 @@ class MahasiswaPortalController extends Controller
         $user = Auth::user();
 
         if (!$user->NIM) {
-            return redirect()->route('admindashboard')->with('error', 'Akun Anda tidak terhubung dengan data mahasiswa.');
+            // Jika kolom NIM di tabel users kosong
+            return redirect()->route('login')->with('error', 'Akun Anda tidak memiliki NIM yang terautentikasi.');
         }
 
-        $mahasiswa = MahasiswaAkademik::with('golongan')->where('NIM', $user->NIM)->firstOrFail();
+        $mahasiswa = MahasiswaAkademik::with('golongan')->where('NIM', $user->NIM)->first();
+
+        if (!$mahasiswa) {
+            // Jika NIM ada di user, tapi tidak ditemukan di tabel mahasiswa
+            return redirect()->route('login')->with('error', 'Data Mahasiswa dengan NIM ' . $user->NIM . ' tidak ditemukan.');
+        }
 
         // Get total SKS enrolled
         $sks_total = Krs::where('krs.NIM', $user->NIM)
@@ -30,7 +36,7 @@ class MahasiswaPortalController extends Controller
             ->where('status_kehadiran', 'Hadir')
             ->count();
 
-        return view('mahasiswa.dashboard', compact('mahasiswa', 'sks_total', 'kehadiran_count'));
+        return view('user.dashboard', compact('mahasiswa', 'sks_total', 'kehadiran_count'));
     }
 
     public function Krs()
@@ -45,7 +51,7 @@ class MahasiswaPortalController extends Controller
             ->with('matakuliah')
             ->get();
 
-        return view('mahasiswa.krs', compact('krs'));
+        return view('user.krs', compact('krs'));
     }
 
     public function Presensi()
@@ -61,6 +67,6 @@ class MahasiswaPortalController extends Controller
             ->orderBy('tanggal', 'desc')
             ->get();
 
-        return view('mahasiswa.presensi', compact('presensi'));
+        return view('user.presensi', compact('presensi'));
     }
 }

@@ -33,8 +33,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('admin/dashboard', 'Index')->name('admindashboard');
     });
 
-
-
     Route::get('/admin/all-ukuran', [SizeController::class, 'index'])->name('allukuran');
     Route::get('/admin/add-ukuran', [SizeController::class, 'create'])->name('addukuran');
     Route::post('/admin/store-ukuran', [SizeController::class, 'store'])->name('storeukuran');
@@ -121,11 +119,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/delete-presensi/{id_presensi}', [App\Http\Controllers\Api\V1\PresensiAkademikController::class, 'DeletePresensi'])->name('deletepresensi');
 });
 
-// ========== MAHASISWA PORTAL ROUTES ==========
+// ========== USER PORTAL ROUTES ==========
 Route::middleware(['auth'])->group(function () {
-    Route::get('/mahasiswa/dashboard', [App\Http\Controllers\Api\V1\MahasiswaPortalController::class, 'Dashboard'])->name('mahasiswa.dashboard');
-    Route::get('/mahasiswa/krs', [App\Http\Controllers\Api\V1\MahasiswaPortalController::class, 'Krs'])->name('mahasiswa.krs');
-    Route::get('/mahasiswa/presensi', [App\Http\Controllers\Api\V1\MahasiswaPortalController::class, 'Presensi'])->name('mahasiswa.presensi');
+    Route::get('/user/dashboard', [App\Http\Controllers\Api\V1\MahasiswaPortalController::class, 'Dashboard'])->name('user.dashboard');
+    Route::get('/user/krs', [App\Http\Controllers\Api\V1\MahasiswaPortalController::class, 'Krs'])->name('user.krs');
+    Route::get('/user/presensi', [App\Http\Controllers\Api\V1\MahasiswaPortalController::class, 'Presensi'])->name('user.presensi');
 });
 
 

@@ -33,6 +33,15 @@ class PresensiAkademikController extends Controller
             'Kode_mk' => 'required|exists:matakuliah,Kode_mk',
         ]);
 
+        $isDuplicate = PresensiAkademik::where('NIM', $request->NIM)
+            ->where('tanggal', $request->tanggal)
+            ->where('Kode_mk', $request->Kode_mk)
+            ->exists();
+
+        if ($isDuplicate) {
+            return redirect()->back()->withErrors(['error' => 'Mahasiswa ini sudah melakukan presensi untuk mata kuliah tersebut pada tanggal yang dipilih.'])->withInput();
+        }
+
         PresensiAkademik::create([
             'hari' => $request->hari,
             'tanggal' => $request->tanggal,
@@ -62,6 +71,15 @@ class PresensiAkademikController extends Controller
             'NIM' => 'required|exists:mahasiswa,NIM',
             'Kode_mk' => 'required|exists:matakuliah,Kode_mk',
         ]);
+
+        $isDuplicate = PresensiAkademik::where('NIM', $request->NIM)
+            ->where('tanggal', $request->tanggal)
+            ->where('Kode_mk', $request->Kode_mk)
+            ->exists();
+
+        if ($isDuplicate) {
+            return redirect()->back()->withErrors(['error' => 'Mahasiswa ini sudah melakukan presensi untuk mata kuliah tersebut pada tanggal yang dipilih.'])->withInput();
+        }
 
         PresensiAkademik::where('id_presensi', $request->id_presensi)->update([
             'hari' => $request->hari,
